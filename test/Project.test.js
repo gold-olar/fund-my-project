@@ -28,7 +28,7 @@ beforeEach(async () => {
         gas: "2000000",
       });
 
-    await generator.methods.createProject("100").send({
+    await generator.methods.createProject("100", "Sample project").send({
       from: accounts[0],
       gas: "2000000",
     });

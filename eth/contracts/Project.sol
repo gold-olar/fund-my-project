@@ -3,8 +3,10 @@ pragma solidity ^0.8.0;
 contract Generator {
     address payable[] public deployedProjects;
 
-    function createProject(uint256 minimum) public {
-        address newProject = address(new Project(minimum, msg.sender));
+    function createProject(uint256 minimum, string memory description) public {
+        address newProject = address(
+            new Project(minimum, description, msg.sender)
+        );
         deployedProjects.push(payable(newProject));
     }
 
@@ -19,6 +21,7 @@ contract Generator {
 
 contract Project {
     uint256 public minimumSupportAmount;
+    string public projectDescription;
     address public projectOwner;
     uint256 public supportersCount;
     mapping(address => bool) public supporters;
@@ -34,9 +37,14 @@ contract Project {
     mapping(uint256 => SpendRequest) public spendRequests;
     uint256 public spendRequestsCount;
 
-    constructor(uint256 minimum, address owner) public {
+    constructor(
+        uint256 minimum,
+        string memory description,
+        address owner
+    ) public {
         minimumSupportAmount = minimum;
         projectOwner = owner;
+        projectDescription = description;
     }
 
     modifier shouldBeProjectOwner() {
@@ -118,7 +126,8 @@ contract Project {
             uint256,
             uint256,
             uint256,
-            address
+            address,
+            string memory
         )
     {
         return (
@@ -126,7 +135,8 @@ contract Project {
             address(this).balance,
             spendRequestsCount,
             supportersCount,
-            projectOwner
+            projectOwner,
+            projectDescription
         );
     }
 

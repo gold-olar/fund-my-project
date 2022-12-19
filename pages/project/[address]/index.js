@@ -7,14 +7,16 @@ import Form from "react-bootstrap/Form";
 import { useEffect, useState } from "react";
 import { getProjectDetailsArray } from "../../../utils/helper";
 import { useRouter } from "next/router";
+import SpendingRequests from "../../../components/SpendingRequests";
 
 const SingleProject = (props) => {
-  const { projectOwner, address, minimumSupportAmount } = props;
+  const { projectOwner, address, minimumSupportAmount, spendingRequests, supportersCount } = props;
   const [web3Addresses, setWeb3Addresses] = useState([]);
   const [value, setValue] = useState("");
   const [response, setResponse] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
 
   const validateValue = (val) => {
     let errorMessage;
@@ -128,7 +130,7 @@ const SingleProject = (props) => {
             </Row>
           </Col>
           <Col className="col-md-8 my-3">
-            <Card className="p-3">
+            <Card  className=" p-3">
               <Row>
                 <Col className="col-md-9">
                   <h6> Project Spending Requests</h6>
@@ -143,6 +145,11 @@ const SingleProject = (props) => {
                     </Button>
                   </Col>
                 ) : null}
+              </Row>
+              <Row className="my-4 ">
+                <Col className="vh-100 overflow-scroll">
+                  <SpendingRequests web3Addresses={web3Addresses} projectAddress={address} supportersCount={supportersCount} spendingRequests={spendingRequests} />
+                </Col>
               </Row>
             </Card>
           </Col>
@@ -162,6 +169,24 @@ export const getServerSideProps = async (context) => {
       .methods.getProjectDetails()
       .call();
 
+
+      const requests = await Promise.all(
+        Array(parseInt(projectDetails[2]))
+          .fill()
+          .map(async (element, index) => {
+            const spendingRequest =  await projectWeb3Instance(address).methods.getSpendingRequest(index).call();
+            return {
+              description: spendingRequest[0],
+              value: spendingRequest[1],
+              vendor: spendingRequest[2],
+              isDispensed: spendingRequest[3],
+              approvalCount: spendingRequest[4],
+            }
+          })
+      );
+
+
+      
     return {
       props: {
         address,
@@ -171,6 +196,7 @@ export const getServerSideProps = async (context) => {
         supportersCount: projectDetails[3],
         projectOwner: projectDetails[4],
         projectDescription: projectDetails[5],
+        spendingRequests: requests
       },
     };
   } catch (error) {

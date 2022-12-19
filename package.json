@@ -6,16 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "mocha"
   },
   "dependencies": {
     "@next/font": "13.0.7",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
     "fs-extra": "^11.1.0",
+    "ganache": "^7.7.1",
+    "mocha": "^10.2.0",
     "next": "13.0.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "solc": "^0.8.17"
+    "solc": "^0.8.17",
+    "web3": "^1.8.1"
   }
 }

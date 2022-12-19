@@ -32,7 +32,7 @@ contract Project {
         bool exists;
     }
     mapping(uint256 => SpendRequest) public spendRequests;
-    uint256 spendRequestsCount;
+    uint256 public spendRequestsCount;
 
     constructor(uint256 minimum, address owner) public {
         minimumSupportAmount = minimum;

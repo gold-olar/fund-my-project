@@ -32,7 +32,7 @@ export const getProjectDetailsArray = (props) => {
       data: spendRequestCount,
     },
     {
-      title: "Number of peoject suppoters",
+      title: "Number of project suppoters",
       data: supportersCount,
     },
     {

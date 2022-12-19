@@ -18,11 +18,13 @@ const CreateProject = () => {
   const validateValue = (val) => {
     let errorMessage;
 
-    if (!val?.amount || !val?.amount?.trim()) {
-      errorMessage = "Enter a minimum amount to contribute";
-    }
+  
     if (!val?.description || !val?.description?.trim()) {
       errorMessage = "Enter a project description";
+    }
+
+    if (!val?.amount || !val?.amount?.trim()) {
+      errorMessage = "Enter a minimum amount to contribute";
     }
 
     return {
@@ -44,7 +46,7 @@ const CreateProject = () => {
       const { amount, description } = values;
 
       const accounts = await web3.eth.getAccounts();
-      console.log(accounts)
+      
       setIsLoading(true);
       await generatorWeb3Instance.methods
         .createProject(String(amount), description)

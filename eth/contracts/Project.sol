@@ -1,5 +1,22 @@
 pragma solidity ^0.8.0;
 
+contract Generator {
+    address payable[] public deployedProjects;
+
+    function createProject(uint256 minimum) public {
+        address newProject = address(new Project(minimum, msg.sender));
+        deployedProjects.push(payable(newProject));
+    }
+
+    function getDeployedProjects()
+        public
+        view
+        returns (address payable[] memory)
+    {
+        return deployedProjects;
+    }
+}
+
 contract Project {
     uint256 public minimumSupportAmount;
     address public projectOwner;

@@ -53,4 +53,20 @@ describe("Project Tests", () => {
     it("Deploys the project contract", () => {
         assert.ok(project.options.address);
     });
+
+    // Write tests for the following
+    // Allows user to fund project
+    // Creates a spending request
+    // Prevents none project owners from creating a spending request
+    // ensures you dont create spending request more than project balance
+    // Allows users to approve spending request
+    // Does not allow to approve unexisting spending requests
+    // Does not allow none project owners to disburse request
+    //  Allows project owners to disburse spending request
+    //  Does not allow project owners to disburse unapproved requests
+    // Does not allow to disburse spending request twice
+    // returns correct project details
+    // returns correct count for spending requests
+    // returns correct details for spending requests
+
 })

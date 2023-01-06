@@ -5,6 +5,7 @@ This is a simple web3 project I built to practice my knowledge of
 - Writing tests for smart contracts
 - Deploying smart contracts
 - Using the web3 library
+- Using the ethersjs library
 - Building web3 Frontend applications 
 
 
